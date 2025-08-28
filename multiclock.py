@@ -1,0 +1,100 @@
+from PyQt6.QtWidgets import (QApplication, 
+                             QWidget, 
+                             QVBoxLayout,
+                             QGridLayout, 
+                             QLabel)
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import (QIcon, 
+                         QFont)
+import sys
+import pytz
+from datetime import datetime
+
+clocks = {
+    'Tokyo': 'Asia/Tokyo',
+    'Seattle': 'US/Pacific',
+    'Honolulu': 'US/Hawaii',
+}
+
+zones = [key for key in clocks.keys()]
+
+def current_times(clocks=clocks):
+    times = []
+    for key in clocks.keys():
+        times.append(datetime.now(pytz.timezone(clocks[key])))
+    return times
+
+
+class Window(QWidget):
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.setWindowTitle('MultiClock')
+        self.setGeometry(200, 200, 300, 1)
+        self.setWindowIcon(QIcon('yagura_starfield.png'))
+        self.setStyleSheet('background: #333;')
+
+        self.create_clocks()
+        self.update_clocks()
+
+        timer = QTimer(self)
+        timer.timeout.connect(self.update_clocks)
+        timer.start(1000)
+
+
+    def create_clocks(self):
+        vbox = QVBoxLayout()
+        vbox.setContentsMargins(12, 0, 12, 0)
+
+        self.tz_names = []
+        self.tz_dates = []
+        self.tz_clocks = []
+        self.tz_grids = []
+
+        # Initialize Qlabels for each Timezone in Clocks
+        for key in clocks.keys():
+            self.tz_names.append(QLabel())
+            self.tz_dates.append(QLabel())
+            self.tz_clocks.append(QLabel())
+            self.tz_grids.append(QGridLayout())
+
+        for grid in self.tz_grids:
+            grid.setContentsMargins(0, 6, 0, 6)
+            vbox.addLayout(grid)
+            vbox.addStretch()
+
+        # Set formats for labels
+        for tz_name, tz_date, tz_clock, tz_grid, zone in zip(self.tz_names, 
+                                                             self.tz_dates, 
+                                                             self.tz_clocks, 
+                                                             self.tz_grids,
+                                                             zones):
+            tz_name.setStyleSheet('background: transparent; color: #FFD700;')
+            tz_name.setFont(QFont('Aptos Narrow', 11, QFont.Weight.Normal))
+            tz_name.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+            tz_name.setText(zone)
+        
+            tz_date.setStyleSheet('background: transparent; color: #FF6347;')
+            tz_date.setFont(QFont('Aptos', 11))
+            tz_date.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
+
+            tz_clock.setStyleSheet('background: transparent; color: #1E90FF; border-top: 1px solid #555;')
+            tz_clock.setFont(QFont('Aptos', 36))
+            tz_clock.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+
+            tz_grid.addWidget(tz_name, 0, 0, 1, 1)
+            tz_grid.addWidget(tz_date, 0, 1, 1, 1)
+            tz_grid.addWidget(tz_clock, 1, 0, 1, 2)
+
+        self.setLayout(vbox)
+
+    def update_clocks(self):
+        for tz_date, tz_clock, current_time in zip(self.tz_dates, self.tz_clocks, current_times(clocks)):
+            tz_date.setText(current_time.strftime('%d %B %Y'))
+            tz_clock.setText(current_time.strftime('%H:%M:%S'))
+    
+
+app = QApplication(sys.argv)
+window = Window()
+window.show()
+sys.exit(app.exec())
