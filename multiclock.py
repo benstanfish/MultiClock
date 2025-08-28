@@ -12,6 +12,8 @@ from datetime import datetime
 
 clocks = {
     'Tokyo': 'Asia/Tokyo',
+    'New York': 'US/Eastern',
+    'GTNP': 'US/Mountain',
     'Seattle': 'US/Pacific',
     'Honolulu': 'US/Hawaii'
 }
