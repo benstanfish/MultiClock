@@ -10,4 +10,4 @@ Simply edit the 'clocks' dictionary in the multiclocks.py. The keys are the disp
 
 ## Compile
 
-You can compile using **pyinstaller** with ```pyinstaller --onefile -w --icon "{absolute icon.ico path}" multiclock.py``` to create an .exe. Alternatively download the [EXE]("benstanfish/MultiClock/dist/") in the dist folder.
+You can compile using **pyinstaller** with ```pyinstaller --onefile -w --icon "{absolute icon.ico path}" multiclock.py``` to create an .exe. Alternatively download the [EXE]("/dist/") in the dist folder.
