@@ -36,7 +36,7 @@ class Window(QWidget):
 
         self.setWindowTitle('MultiClock')
         self.setGeometry(200, 200, 300, 1)
-        self.setWindowIcon(QIcon('C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\img\\yagura_starfield.png'))
+        self.setWindowIcon(QIcon('./img/yagura_starfield.png'))
         self.setStyleSheet('background: #333;')
 
         self.create_clocks()
@@ -107,7 +107,7 @@ class Window(QWidget):
         self.player = QMediaPlayer()
         self.audio_output = QAudioOutput()
         self.player.setAudioOutput(self.audio_output)
-        self.player.setSource(QUrl.fromLocalFile('C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\jihou-sine-3f.mp3'))
+        self.player.setSource(QUrl.fromLocalFile('jihou-sine-3f.mp3'))
         self.audio_output.setVolume(50)
         self.player.play()
 
