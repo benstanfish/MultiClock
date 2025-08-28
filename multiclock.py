@@ -35,7 +35,7 @@ class Window(QWidget):
 
         self.setWindowTitle('MultiClock')
         self.setGeometry(200, 200, 300, 1)
-        self.setWindowIcon(QIcon('C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\yagura_starfield.png'))
+        self.setWindowIcon(QIcon('./img/yagura_starfield.png'))
         self.setStyleSheet('background: #333;')
 
         self.create_clocks()
