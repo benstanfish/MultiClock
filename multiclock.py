@@ -3,9 +3,10 @@ from PyQt6.QtWidgets import (QApplication,
                              QVBoxLayout,
                              QGridLayout, 
                              QLabel)
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer, QUrl
 from PyQt6.QtGui import (QIcon, 
                          QFont)
+from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 import sys, os
 import pytz
 from datetime import datetime
@@ -35,7 +36,7 @@ class Window(QWidget):
 
         self.setWindowTitle('MultiClock')
         self.setGeometry(200, 200, 300, 1)
-        self.setWindowIcon(QIcon('./img/yagura_starfield.png'))
+        self.setWindowIcon(QIcon('C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\img\\yagura_starfield.png'))
         self.setStyleSheet('background: #333;')
 
         self.create_clocks()
@@ -97,9 +98,18 @@ class Window(QWidget):
 
     def update_clocks(self):
         for tz_date, tz_clock, current_time in zip(self.tz_dates, self.tz_clocks, current_times(clocks)):
-            tz_date.setText(current_time.strftime('%d %B %Y'))
+            tz_date.setText(current_time.strftime('%a, %d %B %Y'))
             tz_clock.setText(current_time.strftime('%H:%M:%S'))
+        if datetime.now().minute == 59 and datetime.now().second == 56:
+            self.play_chime()
     
+    def play_chime(self):
+        self.player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
+        self.player.setAudioOutput(self.audio_output)
+        self.player.setSource(QUrl.fromLocalFile('C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\jihou-sine-3f.mp3'))
+        self.audio_output.setVolume(50)
+        self.player.play()
 
 app = QApplication(sys.argv)
 window = Window()
