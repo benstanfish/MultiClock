@@ -1,6 +1,6 @@
 # MultiClock
 
-Application that allows the user to add or remove clocks for multiple timezones. 
+Application that allows the user to add or remove clocks for multiple timezones. Please note, the images and icons are Copyright (C) 2023, Ben Fisher, All Rights Reserved.
 
 <img src="screenshot.png" width="150px">
 
