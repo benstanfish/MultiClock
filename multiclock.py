@@ -10,6 +10,8 @@ import sys, os, json
 import pytz
 from datetime import datetime
 
+basedir = os.path.dirname(__file__)
+
 clocks = {
     'Tokyo': 'Asia/Tokyo',
     'New York': 'US/Eastern',
@@ -55,7 +57,7 @@ class Window(QWidget):
 
         self.setWindowTitle('MultiClock')
         self.setGeometry(200, 200, 350, 1)
-        self.setWindowIcon(QIcon(full_path('./img/yagura_starfield.png')))
+        self.setWindowIcon(QIcon('icon.ico'))
         self.setStyleSheet('background: #333;')
         self.setWindowOpacity(0.95)
 
@@ -132,7 +134,9 @@ class Window(QWidget):
         self.audio_output.setVolume(50)
         self.player.play()
 
-app = QApplication(sys.argv)
-window = Window()
-window.show()
-sys.exit(app.exec())
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(os.path.join(basedir, 'icon.ico')))
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
