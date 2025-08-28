@@ -31,11 +31,11 @@ def utc_offset(timezone_name, dt_obj=None):
     try:
         tz = pytz.timezone(timezone_name)
     except pytz.UnknownTimeZoneError:
-        return None
+        return '?'
     dt_obj = datetime.now(tz) if not None else tz.localize(dt_obj)
     offset_timedelta = dt_obj.utcoffset()
     if offset_timedelta is None:
-        return None
+        return '?'
     return int(offset_timedelta.total_seconds() / 3600)
 
 def get_utc_offsets(clocks=clocks):
