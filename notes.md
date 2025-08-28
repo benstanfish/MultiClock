@@ -1,0 +1,1 @@
+pyinstaller --onefile --icon "C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\icon.ico" -w multiclock.py
