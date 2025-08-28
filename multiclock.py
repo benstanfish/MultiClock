@@ -4,10 +4,9 @@ from PyQt6.QtWidgets import (QApplication,
                              QGridLayout, 
                              QLabel)
 from PyQt6.QtCore import Qt, QTimer, QUrl
-from PyQt6.QtGui import (QIcon, 
-                         QFont)
+from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
-import sys, os
+import sys, os, json
 import pytz
 from datetime import datetime
 
@@ -21,23 +20,44 @@ clocks = {
 
 zones = [key for key in clocks.keys()]
 
+
 def current_times(clocks=clocks):
     times = []
     for key in clocks.keys():
         times.append(datetime.now(pytz.timezone(clocks[key])))
     return times
 
-def resource_path(relative_path):
-    return os.path.join(os.path.abspath("."), relative_path)
+def utc_offset(timezone_name, dt_obj=None):
+    try:
+        tz = pytz.timezone(timezone_name)
+    except pytz.UnknownTimeZoneError:
+        return None
+    dt_obj = datetime.now(tz) if not None else tz.localize(dt_obj)
+    offset_timedelta = dt_obj.utcoffset()
+    if offset_timedelta is None:
+        return None
+    return int(offset_timedelta.total_seconds() / 3600)
+
+def get_utc_offsets(clocks=clocks):
+    offsets = {}
+    for key in clocks.keys():
+        offsets[key] = str(utc_offset(clocks[key]))
+    return offsets
+
+utc_offsets = get_utc_offsets(clocks)
+
+def full_path(rel_path):
+    return os.path.abspath(rel_path)
 
 class Window(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
         self.setWindowTitle('MultiClock')
-        self.setGeometry(200, 200, 300, 1)
-        self.setWindowIcon(QIcon('./img/yagura_starfield.png'))
+        self.setGeometry(200, 200, 350, 1)
+        self.setWindowIcon(QIcon(full_path('./img/yagura_starfield.png')))
         self.setStyleSheet('background: #333;')
+        self.setWindowOpacity(0.95)
 
         self.create_clocks()
         self.update_clocks()
@@ -83,10 +103,10 @@ class Window(QWidget):
             tz_name.setText(zone)
         
             tz_date.setStyleSheet('background: transparent; color: #FF6347;')
-            tz_date.setFont(QFont('Aptos', 11))
+            tz_date.setFont(QFont('Aptos Narrow', 11))
             tz_date.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
 
-            tz_clock.setStyleSheet('background: transparent; color: #1E90FF; border-top: 1px solid #555;')
+            tz_clock.setStyleSheet('color: #1E90FF; border-top: 1px solid #555;')
             tz_clock.setFont(QFont('Aptos', 36))
             tz_clock.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
 
@@ -97,7 +117,8 @@ class Window(QWidget):
         self.setLayout(vbox)
 
     def update_clocks(self):
-        for tz_date, tz_clock, current_time in zip(self.tz_dates, self.tz_clocks, current_times(clocks)):
+        for zone, tz_name, tz_date, tz_clock, current_time in zip(zones, self.tz_names, self.tz_dates, self.tz_clocks, current_times(clocks)):
+            tz_name.setText(zone + ' (GMT ' + utc_offsets[zone] + ')')
             tz_date.setText(current_time.strftime('%a, %d %B %Y'))
             tz_clock.setText(current_time.strftime('%H:%M:%S'))
         if datetime.now().minute == 59 and datetime.now().second == 56:
@@ -107,7 +128,7 @@ class Window(QWidget):
         self.player = QMediaPlayer()
         self.audio_output = QAudioOutput()
         self.player.setAudioOutput(self.audio_output)
-        self.player.setSource(QUrl.fromLocalFile('jihou-sine-3f.mp3'))
+        self.player.setSource(QUrl.fromLocalFile(full_path('jihou-sine-3f.mp3')))
         self.audio_output.setVolume(50)
         self.player.play()
 
