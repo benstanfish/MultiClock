@@ -6,14 +6,14 @@ from PyQt6.QtWidgets import (QApplication,
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import (QIcon, 
                          QFont)
-import sys
+import sys, os
 import pytz
 from datetime import datetime
 
 clocks = {
     'Tokyo': 'Asia/Tokyo',
     'Seattle': 'US/Pacific',
-    'Honolulu': 'US/Hawaii',
+    'Honolulu': 'US/Hawaii'
 }
 
 zones = [key for key in clocks.keys()]
@@ -24,6 +24,8 @@ def current_times(clocks=clocks):
         times.append(datetime.now(pytz.timezone(clocks[key])))
     return times
 
+def resource_path(relative_path):
+    return os.path.join(os.path.abspath("."), relative_path)
 
 class Window(QWidget):
     def __init__(self) -> None:
@@ -31,7 +33,7 @@ class Window(QWidget):
 
         self.setWindowTitle('MultiClock')
         self.setGeometry(200, 200, 300, 1)
-        self.setWindowIcon(QIcon('yagura_starfield.png'))
+        self.setWindowIcon(QIcon('C:\\Users\\benst\\Documents\\Workspace\\MultiClock\\yagura_starfield.png'))
         self.setStyleSheet('background: #333;')
 
         self.create_clocks()
@@ -62,6 +64,9 @@ class Window(QWidget):
             grid.setContentsMargins(0, 6, 0, 6)
             vbox.addLayout(grid)
             vbox.addStretch()
+        
+        self.tz_grids[0].setContentsMargins(0, 24, 0, 0)
+        self.tz_grids[-1].setContentsMargins(0, 0, 0, 24)
 
         # Set formats for labels
         for tz_name, tz_date, tz_clock, tz_grid, zone in zip(self.tz_names, 
