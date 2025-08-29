@@ -19,7 +19,6 @@ defaults = {
     'window.defaults': {
         'title': 'MultiClock',
         'icon': 'icon.ico',
-        'geometry': (200, 200, 325, 1),
         'background': '#222',
         'opacity': 0.95,
         'timer': 1000

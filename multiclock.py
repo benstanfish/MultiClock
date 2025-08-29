@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import (QApplication,
                              QVBoxLayout,
                              QGridLayout, 
                              QLabel)
-from PyQt6.QtCore import Qt, QTimer, QUrl
+from PyQt6.QtCore import QTimer, QUrl
 from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 import sys, os
@@ -16,6 +16,13 @@ basedir = os.path.dirname(__file__)
 defaults = config.defaults
 clocks = defaults['clock.defaults']['clocks']
 zones = [key for key in clocks.keys()]
+
+
+def screen_size():
+    screen = QApplication.primaryScreen()
+    if screen:
+        geom = screen.geometry()
+    return (geom.width(), geom.height())
 
 def current_times(clocks=clocks):
     times = []
@@ -48,10 +55,16 @@ def full_path(rel_path):
 class Window(QWidget):
     def __init__(self) -> None:
         super().__init__()
-
+        
         self.setWindowTitle(defaults['window.defaults']['title'])
-        left, top, width, height = defaults['window.defaults']['geometry']
-        self.setGeometry(left, top, width, height)
+
+        window_width = 325
+        window_height = int(100 * len(clocks))
+        screen_width, screen_height = screen_size()
+        left = screen_width - window_width - 20
+        top = (screen_height - window_height) // 2
+
+        self.setGeometry(left, top, window_width, window_height)
         self.setWindowIcon(QIcon(defaults['window.defaults']['icon']))
         self.setStyleSheet(f'background: {defaults['themes']['classic']['window.background']};')
         self.setWindowOpacity(defaults['window.defaults']['opacity'])
