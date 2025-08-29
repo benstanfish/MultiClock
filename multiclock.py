@@ -6,22 +6,16 @@ from PyQt6.QtWidgets import (QApplication,
 from PyQt6.QtCore import Qt, QTimer, QUrl
 from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
-import sys, os, json
+import sys, os
 import pytz
 from datetime import datetime
+import config
 
 basedir = os.path.dirname(__file__)
 
-clocks = {
-    'Tokyo': 'Asia/Tokyo',
-    'New York': 'US/Eastern',
-    'GTNP': 'US/Mountain',
-    'Seattle': 'US/Pacific',
-    'Honolulu': 'US/Hawaii'
-}
-
+defaults = config.defaults
+clocks = defaults['clock.defaults']['clocks']
 zones = [key for key in clocks.keys()]
-
 
 def current_times(clocks=clocks):
     times = []
@@ -55,18 +49,19 @@ class Window(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        self.setWindowTitle('MultiClock')
-        self.setGeometry(200, 200, 350, 1)
-        self.setWindowIcon(QIcon('icon.ico'))
-        self.setStyleSheet('background: #333;')
-        self.setWindowOpacity(0.95)
+        self.setWindowTitle(defaults['window.defaults']['title'])
+        left, top, width, height = defaults['window.defaults']['geometry']
+        self.setGeometry(left, top, width, height)
+        self.setWindowIcon(QIcon(defaults['window.defaults']['icon']))
+        self.setStyleSheet(f'background: {defaults['window.defaults']['background']};')
+        self.setWindowOpacity(defaults['window.defaults']['opacity'])
 
         self.create_clocks()
         self.update_clocks()
 
         timer = QTimer(self)
         timer.timeout.connect(self.update_clocks)
-        timer.start(1000)
+        timer.start(defaults['window.defaults']['timer'])
 
 
     def create_clocks(self):
@@ -86,12 +81,15 @@ class Window(QWidget):
             self.tz_grids.append(QGridLayout())
 
         for grid in self.tz_grids:
-            grid.setContentsMargins(0, 6, 0, 6)
+            grid.setContentsMargins(0, 0, 0, 0)
             vbox.addLayout(grid)
             vbox.addStretch()
         
         self.tz_grids[0].setContentsMargins(0, 24, 0, 0)
         self.tz_grids[-1].setContentsMargins(0, 0, 0, 24)
+
+        theme = defaults['clock.themes']['plain']
+        align = defaults['clock.align']
 
         # Set formats for labels
         for tz_name, tz_date, tz_clock, tz_grid, zone in zip(self.tz_names, 
@@ -99,18 +97,21 @@ class Window(QWidget):
                                                              self.tz_clocks, 
                                                              self.tz_grids,
                                                              zones):
-            tz_name.setStyleSheet('background: transparent; color: #FFD700;')
-            tz_name.setFont(QFont('Aptos Narrow', 11, QFont.Weight.Normal))
-            tz_name.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+            
+            tz_name.setStyleSheet(f'background: {theme['zone']['background']}; color: {theme['zone']['font.color']};')
+            tz_name.setFont(QFont(theme['zone']['font'], theme['zone']['font.size'], theme['zone']['font.weight']))
+            tz_name.setAlignment(align['zone']['horizontal'] | align['zone']['vertical'])
+            
             tz_name.setText(zone)
         
-            tz_date.setStyleSheet('background: transparent; color: #FF6347;')
-            tz_date.setFont(QFont('Aptos Narrow', 11))
-            tz_date.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
+            tz_date.setStyleSheet(f'background: {theme['date']['background']}; color: {theme['date']['font.color']};')
+            tz_date.setFont(QFont(theme['date']['font'], theme['date']['font.size'], theme['date']['font.weight']))
+            tz_date.setAlignment(align['date']['horizontal'] | align['date']['vertical'])
 
-            tz_clock.setStyleSheet('color: #1E90FF; border-top: 1px solid #555;')
-            tz_clock.setFont(QFont('Aptos', 36))
-            tz_clock.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+            tz_clock.setStyleSheet(f'background: {theme['clock']['background']}; \
+                                   color: {theme['clock']['font.color']}; border-top: {theme['clock']['border-top']};')
+            tz_clock.setFont(QFont(theme['clock']['font'], theme['clock']['font.size'], theme['clock']['font.weight']))
+            tz_clock.setAlignment(align['clock']['horizontal'] | align['clock']['vertical'])
 
             tz_grid.addWidget(tz_name, 0, 0, 1, 1)
             tz_grid.addWidget(tz_date, 0, 1, 1, 1)
@@ -118,25 +119,29 @@ class Window(QWidget):
 
         self.setLayout(vbox)
 
+        # self.tz_clocks[0].setStyleSheet('background: url(./img/night.jpg) center center fit no-repeat;')
+
     def update_clocks(self):
-        for zone, tz_name, tz_date, tz_clock, current_time in zip(zones, self.tz_names, self.tz_dates, self.tz_clocks, current_times(clocks)):
+        for zone, tz_name, tz_date, tz_clock, current_time in \
+            zip(zones, self.tz_names, self.tz_dates, self.tz_clocks, current_times(clocks)):
             tz_name.setText(zone + ' (GMT ' + utc_offsets[zone] + ')')
-            tz_date.setText(current_time.strftime('%a, %d %B %Y'))
-            tz_clock.setText(current_time.strftime('%H:%M:%S'))
-        if datetime.now().minute == 59 and datetime.now().second == 56:
+            tz_date.setText(current_time.strftime(defaults['clock.defaults']['date.format']))
+            tz_clock.setText(current_time.strftime(defaults['clock.defaults']['time.format']))
+        if datetime.now().minute == 59 and \
+            datetime.now().second == 60 + defaults['clock.defaults']['chime.offset']:
             self.play_chime()
     
     def play_chime(self):
         self.player = QMediaPlayer()
         self.audio_output = QAudioOutput()
         self.player.setAudioOutput(self.audio_output)
-        self.player.setSource(QUrl.fromLocalFile(full_path('jihou-sine-3f.mp3')))
-        self.audio_output.setVolume(50)
+        self.player.setSource(QUrl.fromLocalFile(full_path(defaults['clock.defaults']['chime'])))
+        self.audio_output.setVolume(defaults['clock.defaults']['chime.volume'])
         self.player.play()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(os.path.join(basedir, 'icon.ico')))
+    app.setWindowIcon(QIcon(os.path.join(basedir, defaults['window.defaults']['icon'])))
     window = Window()
     window.show()
     sys.exit(app.exec())
