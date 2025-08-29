@@ -21,7 +21,7 @@ defaults = {
         'icon': 'icon.ico',
         'geometry': (200, 200, 325, 1),
         'background': '#333',
-        'opacity': 0.9,
+        'opacity': 1,
         'timer': 1000
     },
     'clock.defaults': {

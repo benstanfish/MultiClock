@@ -119,8 +119,6 @@ class Window(QWidget):
 
         self.setLayout(vbox)
 
-        # self.tz_clocks[0].setStyleSheet('background: url(./img/night.jpg) center center fit no-repeat;')
-
     def update_clocks(self):
         for zone, tz_name, tz_date, tz_clock, current_time in \
             zip(zones, self.tz_names, self.tz_dates, self.tz_clocks, current_times(clocks)):
