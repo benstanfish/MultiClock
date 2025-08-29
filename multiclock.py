@@ -53,7 +53,7 @@ class Window(QWidget):
         left, top, width, height = defaults['window.defaults']['geometry']
         self.setGeometry(left, top, width, height)
         self.setWindowIcon(QIcon(defaults['window.defaults']['icon']))
-        self.setStyleSheet(f'background: {defaults['themes']['plain']['window.background']};')
+        self.setStyleSheet(f'background: {defaults['themes']['classic']['window.background']};')
         self.setWindowOpacity(defaults['window.defaults']['opacity'])
         
         self.create_clocks()
@@ -88,7 +88,7 @@ class Window(QWidget):
         self.tz_grids[0].setContentsMargins(0, 24, 0, 0)
         self.tz_grids[-1].setContentsMargins(0, 0, 0, 24)
 
-        theme = defaults['themes']['plain']
+        theme = defaults['themes']['classic']
         align = defaults['clock.align']
 
         # Set formats for labels

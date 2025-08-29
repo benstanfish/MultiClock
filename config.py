@@ -47,12 +47,12 @@ defaults = {
         }
     },
     'themes': {
-        'plain': {
+        'classic': {
             'window.background': '#031417',
             'zone': {
                 'font': 'Consolas',
                 'font.size': 10,
-                'font.weight': QFont.Weight.Normal,
+                'font.weight': QFont.Weight.Thin,
                 'font.color': '#49e9a6',
                 'background': 'transparent'
             },
