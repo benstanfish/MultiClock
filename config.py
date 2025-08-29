@@ -20,8 +20,8 @@ defaults = {
         'title': 'MultiClock',
         'icon': 'icon.ico',
         'geometry': (200, 200, 325, 1),
-        'background': '#333',
-        'opacity': 1,
+        'background': '#222',
+        'opacity': 0.95,
         'timer': 1000
     },
     'clock.defaults': {
@@ -46,28 +46,29 @@ defaults = {
             'vertical': Qt.AlignmentFlag.AlignTop
         }
     },
-    'clock.themes': {
+    'themes': {
         'plain': {
+            'window.background': '#031417',
             'zone': {
-                'font': 'Aptos Narrow',
-                'font.size': 11,
+                'font': 'Consolas',
+                'font.size': 10,
                 'font.weight': QFont.Weight.Normal,
-                'font.color': "#ffffff",
+                'font.color': '#49e9a6',
                 'background': 'transparent'
             },
             'date': {
-                'font': 'Aptos Narrow',
-                'font.size': 11,
-                'font.weight': QFont.Weight.Normal,
-                'font.color': "#ffffff",
+                'font': 'Consolas',
+                'font.size': 10,
+                'font.weight': QFont.Weight.Thin,
+                'font.color': '#49e9a6',
                 'background': 'transparent'
             },
             'clock': {
-                'font': 'Aptos',
-                'font.size': 36,
+                'font': 'Consolas',
+                'font.size': 28,
                 'font.weight': QFont.Weight.Normal,
-                'font.color': "#ffffff",
-                'border-top': '1px solid #555',
+                'font.color': '#49e9a6',
+                'border-top': '1px solid #223b3f',
                 'background': 'transparent'
             }
         }
