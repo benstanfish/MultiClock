@@ -41,10 +41,11 @@ defaults = {
             'vertical': Qt.AlignmentFlag.AlignBottom
         },
         'clock': {
-            'horizontal': Qt.AlignmentFlag.AlignHCenter,
-            'vertical': Qt.AlignmentFlag.AlignTop
+            'horizontal': Qt.AlignmentFlag.AlignRight,
+            'vertical': Qt.AlignmentFlag.AlignCenter
         }
     },
+    'selected_theme': 'classic',
     'themes': {
         'classic': {
             'window.background': '#031417',
@@ -67,6 +68,31 @@ defaults = {
                 'font.size': 28,
                 'font.weight': QFont.Weight.Normal,
                 'font.color': '#49e9a6',
+                'border-top': '1px solid #223b3f',
+                'background': "transparent"
+            }
+        },
+        'artic': {
+            'window.background': "#00064A",
+            'zone': {
+                'font': 'Consolas',
+                'font.size': 10,
+                'font.weight': QFont.Weight.Thin,
+                'font.color': "#51ceff",
+                'background': 'transparent'
+            },
+            'date': {
+                'font': 'Consolas',
+                'font.size': 10,
+                'font.weight': QFont.Weight.Thin,
+                'font.color': "#51ceff",
+                'background': 'transparent'
+            },
+            'clock': {
+                'font': 'Consolas',
+                'font.size': 28,
+                'font.weight': QFont.Weight.Normal,
+                'font.color': "#51ceff",
                 'border-top': '1px solid #223b3f',
                 'background': 'transparent'
             }
