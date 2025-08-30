@@ -140,7 +140,7 @@ class Window(QWidget):
     def update_time(self):
         for zone, tz_name, tz_date, tz_img, tz_clock, current_time in \
             zip(zones, self.tz_names, self.tz_dates, self.tz_imgs, self.tz_clocks, current_times(clocks)):
-            tz_name.setText(zone + ' (GMT ' + utc_offsets[zone] + ')')
+            tz_name.setText(zone + ' (UTC ' + utc_offsets[zone] + ')')
             tz_date.setText(current_time.strftime(defaults['clock.defaults']['date.format']))
             tz_clock.setText(current_time.strftime(defaults['clock.defaults']['time.format']))
             self.set_image(tz_img, current_time)

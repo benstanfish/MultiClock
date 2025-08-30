@@ -9,10 +9,11 @@ from PyQt6.QtGui import QFont
 
 clocks = {
     'Tokyo': 'Asia/Tokyo',
+    'UTC': 'UTC',
     'New York': 'US/Eastern',
-    'Denver': 'US/Mountain',
+    'Mountain': 'US/Mountain',
     'Seattle': 'US/Pacific',
-    'Honolulu': 'US/Hawaii'
+    'Hawaii': 'US/Hawaii'
 }
 
 defaults = {
