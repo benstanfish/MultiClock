@@ -9,6 +9,7 @@ from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 import sys, os
 import pytz
 from datetime import datetime
+from time import perf_counter, sleep
 import config
 
 basedir = os.path.dirname(__file__)
@@ -77,6 +78,9 @@ class Window(QWidget):
 
         self.create_clocks()
         self.update_time()
+
+        # The following function aligns the timer to the computer clock within milliseconds
+        self.align_time()
 
         timer = QTimer(self)
         timer.timeout.connect(self.update_time)
@@ -166,6 +170,11 @@ class Window(QWidget):
         else:
             image_host.setPixmap(self.night)
         image_host.setScaledContents(False)
+
+    def align_time(self):
+        """This function aligns the application timer and the now() time."""
+        sleep(1 - perf_counter() % 1)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
