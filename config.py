@@ -30,7 +30,7 @@ defaults = {
         'time.format': '%H:%M:%S',
         'chime': 'jihou-sine-3f.mp3',
         'chime.offset': -4,
-        'chime.volume': 50
+        'chime.volume': 100
     },
     'clock.align': {
         'zone': {
