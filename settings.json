@@ -1,0 +1,91 @@
+{
+    "app": "MultiClock",
+    "window.defaults": {
+        "title": "MultiClock",
+        "icon": "./assets/icon.ico",
+        "background": "#222",
+        "opacity": 0.95,
+        "timer": 1000
+    },
+    "clock.defaults": {
+        "clocks": {
+            "Tokyo": "Asia/Tokyo",
+            "UTC": "UTC",
+            "New York": "US/Eastern",
+            "Seattle": "US/Pacific",
+            "Hawaii": "US/Hawaii"
+        },
+        "date.format": "%a, %d %B %Y",
+        "time.format": "%H:%M:%S",
+        "chime": "./assets/jihou-sine-3f.mp3",
+        "chime.offset": -4,
+        "chime.volume": 100
+    },
+    "clock.align": {
+        "zone": {
+            "horizontal": 1,
+            "vertical": 64
+        },
+        "date": {
+            "horizontal": 2,
+            "vertical": 64
+        },
+        "clock": {
+            "horizontal": 2,
+            "vertical": 132
+        }
+    },
+    "selected_theme": "classic",
+    "themes": {
+        "classic": {
+            "window.background": "#031417",
+            "zone": {
+                "font": "Consolas",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#49e9a6",
+                "background": "transparent"
+            },
+            "date": {
+                "font": "Consolas",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#49e9a6",
+                "background": "transparent"
+            },
+            "clock": {
+                "font": "Consolas",
+                "font.size": 28,
+                "font.weight": 400,
+                "font.color": "#49e9a6",
+                "border-top": "1px solid #223b3f",
+                "background": "transparent"
+            }
+        },
+        "artic": {
+            "window.background": "#00064A",
+            "zone": {
+                "font": "Consolas",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#51ceff",
+                "background": "transparent"
+            },
+            "date": {
+                "font": "Consolas",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#51ceff",
+                "background": "transparent"
+            },
+            "clock": {
+                "font": "Consolas",
+                "font.size": 28,
+                "font.weight": 400,
+                "font.color": "#51ceff",
+                "border-top": "1px solid #223b3f",
+                "background": "transparent"
+            }
+        }
+    }
+}
