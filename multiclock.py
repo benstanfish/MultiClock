@@ -18,7 +18,6 @@ settings = config.load_settings()
 
 clocks = settings['clock.defaults']['clocks']
 zones = [key for key in clocks.keys()]
-print(zones)
 
 theme_name = settings['selected_theme']
 
@@ -66,7 +65,8 @@ class Window(QWidget):
         window_height = int(100 * len(clocks))
         screen_width, screen_height = screen_size()
         left = screen_width - window_width - 20
-        top = (screen_height - window_height) // 2
+        #top = (screen_height - window_height) // 2
+        top = 40
 
         self.setGeometry(left, top, window_width, window_height)
         self.setWindowIcon(QIcon(settings['window.defaults']['icon']))
