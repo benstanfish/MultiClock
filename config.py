@@ -3,7 +3,7 @@ Internal configurations and fall-back defaults for MultiClock.
 User configuration is intended through the settings.json file.
 """
 
-import json
+import json, os
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 
@@ -11,15 +11,15 @@ clocks = {
     'Tokyo': 'Asia/Tokyo',
     'UTC': 'UTC',
     'New York': 'US/Eastern',
-    'Mountain': 'US/Mountain',
     'Seattle': 'US/Pacific',
     'Hawaii': 'US/Hawaii'
 }
 
-defaults = {
+fallback_settings = {
+    'app': 'MultiClock',
     'window.defaults': {
         'title': 'MultiClock',
-        'icon': 'icon.ico',
+        'icon': './assets/icon.ico',
         'background': '#222',
         'opacity': 0.95,
         'timer': 1000
@@ -28,7 +28,7 @@ defaults = {
         'clocks': clocks,
         'date.format': '%a, %d %B %Y',
         'time.format': '%H:%M:%S',
-        'chime': 'jihou-sine-3f.mp3',
+        'chime': './assets/jihou-sine-3f.mp3',
         'chime.offset': -4,
         'chime.volume': 100
     },
@@ -99,6 +99,23 @@ defaults = {
             }
         }
     }
-
 }
 
+def write_user_settings():
+    with open('settings.json', 'w', encoding='utf-8') as file:
+        json.dump(fallback_settings, file, ensure_ascii=False, indent=4)
+
+def load_settings(path='settings.json'):
+    if os.path.isfile(path):
+        with open(path, 'r') as file:
+            data = json.load(file)
+            if data.get('app') == 'MultiClock':
+                return data
+            else:
+                write_user_settings()
+    else:
+        write_user_settings()
+    return fallback_settings
+
+
+        
