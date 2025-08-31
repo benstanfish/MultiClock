@@ -4,14 +4,17 @@
         "title": "MultiClock",
         "icon": "./assets/icon.ico",
         "background": "#222",
-        "opacity": 0.95,
+        "opacity": 0.9,
         "timer": 1000
     },
     "clock.defaults": {
         "clocks": {
             "Tokyo": "Asia/Tokyo",
-			"GTNP": "US/Mountain",
-            "Seattle": "US/Pacific"
+			"UTC": "UTC",
+			"New York": "US/Eastern",
+			"Denver": "US/Mountain",
+            "Seattle": "US/Pacific",
+			"Honolulu": "US/Hawaii"
         },
         "date.format": "%a, %d %B %Y",
         "time.format": "%H:%M",
