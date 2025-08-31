@@ -17,7 +17,7 @@
         },
         "date.format": "%a, %d %B %Y",
         "time.format": "%H:%M:%S",
-        "chime": "./assets/jihou-sine-3f.mp3",
+        "chime": "./assets/bamboo-flute.mp3",
         "chime.offset": -4,
         "chime.volume": 100
     },
