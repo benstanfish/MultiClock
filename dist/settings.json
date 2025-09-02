@@ -4,22 +4,21 @@
         "title": "MultiClock",
         "icon": "./assets/icon.ico",
         "background": "#222",
-        "opacity": 0.9,
+        "opacity": 0.7,
         "timer": 1000
     },
     "clock.defaults": {
         "clocks": {
             "Tokyo": "Asia/Tokyo",
 			"UTC": "UTC",
-			"New York": "US/Eastern",
-			"Denver": "US/Mountain",
+			"GTNP": "US/Mountain",
             "Seattle": "US/Pacific",
 			"Honolulu": "US/Hawaii"
         },
         "date.format": "%a, %d %B %Y",
         "time.format": "%H:%M",
-        "chime": "./assets/jihou-sine-3f.mp3",
-        "chime.offset": -4,
+        "chime": "./assets/twinkle.mp3",
+        "chime.offset": -1,
         "chime.volume": 100
     },
     "clock.align": {
