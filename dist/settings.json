@@ -12,6 +12,7 @@
             "Tokyo": "Asia/Tokyo",
 			"UTC": "UTC",
 			"New York": "US/Eastern",
+			"Chicago": "US/Central",
 			"Denver": "US/Mountain",
             "Seattle": "US/Pacific",
 			"Honolulu": "US/Hawaii"
