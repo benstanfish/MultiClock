@@ -89,7 +89,7 @@ class Window(QWidget):
         self.align_time()
 
         timer = QTimer(self)
-        timer.timeout.connect(self.update_time)
+        timer.timeout.connect(lambda: self.update_time())
         timer.start(settings['window.defaults']['timer'])
 
     def create_clocks(self):

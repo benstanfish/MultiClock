@@ -1,21 +1,19 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QMainWindow
-from PyQt6.QtGui import QPixmap, QPainter, QPen, QBrush, QColor
+from PyQt6.QtGui import QPixmap, QPainter, QPen, QColor
 from PyQt6.QtCore import Qt, QRectF, QPointF, QTimer
-import sys, os, math
-from datetime import datetime
+import sys, math
+from datetime import datetime, timedelta
 import config
 
 settings = config.load_settings()
 clocks = settings['clock.defaults']['clocks']
 theme_name = settings['selected_theme']
 
-size = 150
+size = 200
 pad = 5
+center = QPointF(size / 2, size / 2)
 min_hand = (size - pad * 4) / 2
 hour_hand = min_hand * 0.6
-
-center = QPointF(size / 2, size / 2)
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,15 +24,13 @@ class MainWindow(QMainWindow):
         canvas.fill(Qt.GlobalColor.transparent)
         self.label.setPixmap(canvas)
         self.setCentralWidget(self.label)
-        self.draw_clock()
-
+        self.draw_clock(datetime.now())
 
         timer = QTimer(self)
-        timer.timeout.connect(self.draw_clock)
+        timer.timeout.connect(lambda: self.draw_clock(datetime.now()))
         timer.start(1000)
 
-
-    def draw_clock(self):
+    def draw_clock(self, draw_time: datetime):
         canvas = self.label.pixmap()
         canvas.fill(Qt.GlobalColor.transparent)
         painter = QPainter(canvas)
@@ -69,7 +65,7 @@ class MainWindow(QMainWindow):
         sec_pen.setColor(QColor('tomato'))
         painter.setPen(sec_pen)
         
-        angle = 360 / 60 * datetime.now().second
+        angle = 360 / 60 * draw_time.second
         angle_r = math.radians(angle - 90)
         sec_tip = QPointF(center.x() + min_hand * 0.95 * math.cos(angle_r), 
                           center.y() + min_hand * 0.95 * math.sin(angle_r))
@@ -81,7 +77,7 @@ class MainWindow(QMainWindow):
         min_pen.setColor(QColor(settings['themes'][theme_name]['clock']['font.color']))
         painter.setPen(min_pen)
         
-        angle = 360 / 60 * datetime.now().minute
+        angle = 360 / 60 * draw_time.minute
         angle_r = math.radians(angle - 90)
         min_tip = QPointF(center.x() + min_hand * math.cos(angle_r), 
                           center.y() + min_hand * math.sin(angle_r))
@@ -92,9 +88,8 @@ class MainWindow(QMainWindow):
         hour_pen.setWidth(4)
         hour_pen.setColor(QColor(settings['themes'][theme_name]['clock']['font.color']))
         painter.setPen(hour_pen)
-        
 
-        angle = 360 / 12 * datetime.now().hour
+        angle = 360 / 12 * (draw_time.hour + draw_time.minute / 60)
         angle_r = math.radians(angle - 90)
         hour_tip = QPointF(center.x() + hour_hand * math.cos(angle_r), 
                            center.y() + hour_hand * math.sin(angle_r))
