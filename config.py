@@ -10,7 +10,6 @@ from PyQt6.QtGui import QFont
 clocks = {
     'Tokyo': 'Asia/Tokyo',
     'UTC': 'UTC',
-    'New York': 'US/Eastern',
     'Chicago': 'US/Central',
     'Seattle': 'US/Pacific',
     'Hawaii': 'US/Hawaii'
@@ -27,7 +26,15 @@ fallback_settings = {
     },
     'clock.defaults': {
         'clocks': clocks,
-        'date.format': '%a, %d %B %Y',
+        'date.format': '%a, %d %b %Y',
+        'time.format': '%H:%M',
+        'chime': './assets/jihou-sine-3f.mp3',
+        'chime.offset': -4,
+        'chime.volume': 100
+    },
+    'clock.defaults.horizontal': {
+        'clocks': clocks,
+        'date.format': '%a, %d %M %Y',
         'time.format': '%H:%M',
         'chime': './assets/jihou-sine-3f.mp3',
         'chime.offset': -4,
@@ -45,6 +52,20 @@ fallback_settings = {
         'clock': {
             'horizontal': Qt.AlignmentFlag.AlignRight,
             'vertical': Qt.AlignmentFlag.AlignCenter
+        }
+    },
+    'clock.align.horizontal': {
+        'zone': {
+            'horizontal': Qt.AlignmentFlag.AlignHCenter,
+            'vertical': Qt.AlignmentFlag.AlignVCenter
+        },
+        'date': {
+            'horizontal': Qt.AlignmentFlag.AlignHCenter,
+            'vertical': Qt.AlignmentFlag.AlignVCenter
+        },
+        'clock': {
+            'horizontal': Qt.AlignmentFlag.AlignHCenter,
+            'vertical': Qt.AlignmentFlag.AlignVCenter
         }
     },
     'selected_theme': 'classic',

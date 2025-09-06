@@ -11,13 +11,25 @@
         "clocks": {
             "Tokyo": "Asia/Tokyo",
             "UTC": "UTC",
-            "New York": "US/Eastern",
             "Chicago": "US/Central",
-            "Denver": "US/Mountain",
             "Seattle": "US/Pacific",
             "Hawaii": "US/Hawaii"
         },
-        "date.format": "%a, %d %B %Y",
+        "date.format": "%a, %d %b %Y",
+        "time.format": "%H:%M",
+        "chime": "./assets/jihou-sine-3f.mp3",
+        "chime.offset": -4,
+        "chime.volume": 100
+    },
+    "clock.defaults.horizontal": {
+        "clocks": {
+            "Tokyo": "Asia/Tokyo",
+            "UTC": "UTC",
+            "Chicago": "US/Central",
+            "Seattle": "US/Pacific",
+            "Hawaii": "US/Hawaii"
+        },
+        "date.format": "%a, %d %M %Y",
         "time.format": "%H:%M",
         "chime": "./assets/jihou-sine-3f.mp3",
         "chime.offset": -4,
@@ -35,6 +47,20 @@
         "clock": {
             "horizontal": 2,
             "vertical": 132
+        }
+    },
+    "clock.align.horizontal": {
+        "zone": {
+            "horizontal": 4,
+            "vertical": 128
+        },
+        "date": {
+            "horizontal": 4,
+            "vertical": 128
+        },
+        "clock": {
+            "horizontal": 4,
+            "vertical": 128
         }
     },
     "selected_theme": "classic",
