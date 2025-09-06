@@ -11,6 +11,7 @@ clocks = {
     'Tokyo': 'Asia/Tokyo',
     'UTC': 'UTC',
     'New York': 'US/Eastern',
+    'Chicago': 'US/Central',
     'Seattle': 'US/Pacific',
     'Hawaii': 'US/Hawaii'
 }

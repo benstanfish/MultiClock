@@ -97,7 +97,7 @@ class Window(QWidget):
         vbox.setContentsMargins(12, 6, 12, 6)
 
         main_label = QLabel()
-        main_label.setText(f'MultiClock, <span style="font-size: 12px;">v{__version__}</span>')
+        main_label.setText(f'MultiClock <span style="font-size: 12px;">(version {__version__})</span>')
         main_label.setMaximumHeight(60)
         main_label.setFont(QFont('Aptos Narrow', 16))
         main_label.setStyleSheet(f'color: {settings['themes'][theme_name]['zone']['font.color']}; border-bottom: 1px solid {settings['themes'][theme_name]['zone']['font.color']}; padding-bottom: 3px; margin-bottom: 6px;')

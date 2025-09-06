@@ -12,13 +12,15 @@
             "Tokyo": "Asia/Tokyo",
             "UTC": "UTC",
             "New York": "US/Eastern",
+            "Chicago": "US/Central",
+            "Denver": "US/Mountain",
             "Seattle": "US/Pacific",
             "Hawaii": "US/Hawaii"
         },
         "date.format": "%a, %d %B %Y",
         "time.format": "%H:%M",
-        "chime": "./assets/nishikasai.mp3",
-        "chime.offset": 1,
+        "chime": "./assets/jihou-sine-3f.mp3",
+        "chime.offset": -4,
         "chime.volume": 100
     },
     "clock.align": {
@@ -35,7 +37,7 @@
             "vertical": 132
         }
     },
-    "selected_theme": "sleek",
+    "selected_theme": "classic",
     "themes": {
         "classic": {
             "window.background": "#031417",
