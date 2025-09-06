@@ -9,7 +9,7 @@ settings = config.load_settings()
 clocks = settings['clock.defaults']['clocks']
 theme_name = settings['selected_theme']
 
-size = 200
+size = 150
 pad = 5
 center = QPointF(size / 2, size / 2)
 min_hand = (size - pad * 4) / 2
