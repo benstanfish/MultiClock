@@ -96,6 +96,14 @@ class Window(QWidget):
         vbox = QVBoxLayout()
         vbox.setContentsMargins(12, 6, 12, 6)
 
+        main_label = QLabel()
+        main_label.setText(f'MultiClock, <span style="font-size: 12px;">v{__version__}</span>')
+        main_label.setMaximumHeight(60)
+        main_label.setFont(QFont('Aptos Narrow', 16))
+        main_label.setStyleSheet(f'color: {settings['themes'][theme_name]['zone']['font.color']}; border-bottom: 1px solid {settings['themes'][theme_name]['zone']['font.color']}; padding-bottom: 3px; margin-bottom: 6px;')
+        main_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        vbox.addWidget(main_label)
+       
         self.tz_names = []
         self.tz_dates = []
         self.tz_imgs = []
@@ -142,9 +150,17 @@ class Window(QWidget):
 
         self.tz_imgs[-1].setStyleSheet('margin-bottom: 12px')
 
+        theme_label = QLabel()
+        theme_label.setMaximumHeight(20)
+        theme_label.setText(f'The current theme is <span style="font-weight: bold;">{settings['selected_theme'].title()}</span>')
+        theme_label.setFont(QFont('Aptos Narrow', 9))
+        theme_label.setStyleSheet(f'color: {theme['zone']['font.color']}; border-bottom: 1px solid {theme['zone']['font.color']}; padding-bottom: 3px;')
+        theme_label.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
+        vbox.addWidget(theme_label)
+
         static = QLabel()
         static.setMaximumHeight(15)
-        static.setText(f'MultiClock v{__version__}, Copyright © 2025, Ben Fisher')
+        static.setText(f'MultiClock, Copyright © 2025, Ben Fisher')
         static.setFont(QFont('Aptos Narrow', 9))
         static.setStyleSheet(f'color: {theme['zone']['font.color']};')
         static.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)

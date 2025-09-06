@@ -97,6 +97,56 @@ fallback_settings = {
                 'border-top': '1px solid #223b3f',
                 'background': 'transparent'
             }
+        },
+        "night": {
+            "window.background": "#173f5f",
+            "zone": {
+                "font": "Consolas",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#3caea3",
+                "background": "transparent"
+            },
+            "date": {
+                "font": "Consolas",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#f6d55c",
+                "background": "transparent"
+            },
+            "clock": {
+                "font": "Consolas",
+                "font.size": 28,
+                "font.weight": 400,
+                "font.color": "#ed553b",
+                "border-top": "1px solid #20639b",
+                "background": "transparent"
+            }
+        },
+        "sleek": {
+            "window.background": "#282828",
+            "zone": {
+                "font": "Aptos Narrow",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#3caea3",
+                "background": "transparent"
+            },
+            "date": {
+                "font": "Aptos Narrow",
+                "font.size": 10,
+                "font.weight": 100,
+                "font.color": "#5c5c5c",
+                "background": "transparent"
+            },
+            "clock": {
+                "font": "Aptos",
+                "font.size": 28,
+                "font.weight": 400,
+                "font.color": "#3caea3",
+                "border-top": "1px solid #3caea3",
+                "background": "transparent"
+            }
         }
     }
 }
