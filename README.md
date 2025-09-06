@@ -4,7 +4,7 @@ Application that allows the user to add or remove clocks for multiple timezones.
 
 <img src="screenshot.png" width="150px">
 
-I have also created a version with analog clocks, which has a horizontal layout. You'll need to run pyinstaller to create an EXE for this verion; it's not included in the dist folder.
+I have also created a version with analog clocks, which has a horizontal layout. The two share the same settings.json, so if you have issues, just delete the existing settings.json and open either app to recreate it.
 
 <img src="screenshot_analog.png" height="150px">
 

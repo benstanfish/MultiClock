@@ -65,7 +65,7 @@ class Window(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        self.setWindowTitle(settings['window.defaults']['title'])
+        self.setWindowTitle("MultiClock Analog")
 
         window_height = 1
         window_width = int(175 * len(clocks))
@@ -102,7 +102,7 @@ class Window(QWidget):
         # hbox.setContentsMargins(0, 12, 0, 12)
 
         main_label = QLabel()
-        main_label.setText(f'MultiClock <span style="font-size: 12px;">(version {__version__})</span>')
+        main_label.setText(f'MultiClock Analog <span style="font-size: 12px;">(version {__version__})</span>')
         main_label.setMaximumHeight(60)
         main_label.setFont(QFont('Aptos Narrow', 16))
         main_label.setStyleSheet(f'color: {settings['themes'][theme_name]['zone']['font.color']}; border-bottom: 1px solid {settings['themes'][theme_name]['zone']['font.color']}; padding-bottom: 3px; margin-bottom: 6px;')
