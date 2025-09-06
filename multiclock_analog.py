@@ -4,7 +4,6 @@ from PyQt6.QtWidgets import (QApplication,
                              QWidget,
                              QHBoxLayout,
                              QVBoxLayout,
-                             QGridLayout,
                              QLabel)
 from PyQt6.QtCore import Qt, QTimer, QUrl
 from PyQt6.QtGui import QIcon, QFont, QPixmap
@@ -15,7 +14,7 @@ from tzlocal import get_localzone
 from datetime import datetime
 from time import perf_counter, sleep
 import config
-from aclock import QAClock
+from aclockv import QAClock
 
 basedir = os.path.dirname(__file__)
 
@@ -67,7 +66,7 @@ class Window(QWidget):
 
         self.setWindowTitle("MultiClock Analog")
 
-        window_height = 1
+        window_height = 325
         window_width = int(175 * len(clocks))
         screen_width, screen_height = screen_size()
         left = screen_width - window_width - 20
@@ -143,8 +142,6 @@ class Window(QWidget):
             tz_date.setStyleSheet(f'background: {theme['date']['background']}; color: {theme['date']['font.color']};')
             tz_date.setFont(QFont(theme['date']['font'], theme['date']['font.size'], theme['date']['font.weight']))
             tz_date.setAlignment(Qt.AlignmentFlag(align['date']['horizontal']) | Qt.AlignmentFlag(align['date']['vertical']))
-            
-            # tz_img.setStyleSheet(f'background: {theme['date']['background']}; color: {theme['date']['font.color']}; height: 50; width: 50;')
 
             tz_clock.setStyleSheet(f'background: {theme['clock']['background']}; color: {theme['clock']['font.color']};')
             tz_clock.setFont(QFont(theme['clock']['font'], theme['clock']['font.size'], theme['clock']['font.weight']))
@@ -152,7 +149,7 @@ class Window(QWidget):
 
             tz_vbox.addWidget(tz_name)
             tz_vbox.addWidget(tz_date)
-            tz_vbox.addWidget(tz_aclock.label)
+            tz_vbox.addWidget(tz_aclock.view)
             tz_vbox.addWidget(tz_clock)
 
 
