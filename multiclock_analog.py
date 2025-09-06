@@ -214,7 +214,7 @@ class Window(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(os.path.join(basedir, settings['window.defaults']['icon'])))
+    app.setWindowIcon(QIcon(os.path.join(basedir, settings['window.defaults']['icon_alt'])))
     window = Window()
     window.show()
     sys.exit(app.exec())
