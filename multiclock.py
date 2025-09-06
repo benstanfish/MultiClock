@@ -153,7 +153,7 @@ class Window(QWidget):
         if datetime.now().minute == 59 and \
             datetime.now().second == 60 + settings['clock.defaults']['chime.offset']:
             # The chime is overridden (silent mode) between 22:00 to 08:00 the next day
-            if datetime.now().hour > 7 and datetime.now().hour < 22:
+            if datetime.now().hour > 6 and datetime.now().hour < 23:
                 self.play_chime()
     
     def play_chime(self):
