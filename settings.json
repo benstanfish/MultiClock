@@ -17,8 +17,8 @@
         },
         "date.format": "%a, %d %B %Y",
         "time.format": "%H:%M",
-        "chime": "./assets/14 西葛西(2番線).mp3",
-        "chime.offset": 0,
+        "chime": "./assets/nishikasai.mp3",
+        "chime.offset": 1,
         "chime.volume": 100
     },
     "clock.align": {

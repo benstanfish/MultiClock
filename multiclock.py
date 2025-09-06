@@ -1,7 +1,9 @@
-from PyQt6.QtWidgets import (QApplication, 
-                             QWidget, 
+__version__ = '1.1'
+
+from PyQt6.QtWidgets import (QApplication,
+                             QWidget,
                              QVBoxLayout,
-                             QGridLayout, 
+                             QGridLayout,
                              QLabel)
 from PyQt6.QtCore import Qt, QTimer, QUrl
 from PyQt6.QtGui import QIcon, QFont, QPixmap
@@ -60,7 +62,7 @@ def full_path(rel_path):
 class Window(QWidget):
     def __init__(self) -> None:
         super().__init__()
-        
+
         self.setWindowTitle(settings['window.defaults']['title'])
 
         window_width = 325
@@ -74,11 +76,11 @@ class Window(QWidget):
         self.setWindowIcon(QIcon(settings['window.defaults']['icon']))
         self.setStyleSheet(f'background: {settings['themes'][theme_name]['window.background']};')
         self.setWindowOpacity(settings['window.defaults']['opacity'])
-        
+
         self.night = QPixmap('./assets/night.png')
         self.dawn = QPixmap('./assets/dawn.png')
         self.day = QPixmap('./assets/day.png')
-        self.dusk = QPixmap('./assets/dusk.png') 
+        self.dusk = QPixmap('./assets/dusk.png')
 
         self.create_clocks()
         self.update_time()
@@ -117,12 +119,12 @@ class Window(QWidget):
         # Set formats for labels
         for tz_name, tz_date, tz_img, tz_clock, tz_grid, zone in \
             zip(self.tz_names, self.tz_dates, self.tz_imgs, self.tz_clocks, self.tz_grids, zones):
-            
+
             tz_name.setStyleSheet(f'background: {theme['zone']['background']}; color: {theme['zone']['font.color']};')
             tz_name.setFont(QFont(theme['zone']['font'], theme['zone']['font.size'], theme['zone']['font.weight']))
             tz_name.setAlignment(Qt.AlignmentFlag(align['zone']['horizontal']) | Qt.AlignmentFlag(align['zone']['vertical']))
             tz_name.setText(zone)
-        
+
             tz_date.setStyleSheet(f'background: {theme['date']['background']}; color: {theme['date']['font.color']};')
             tz_date.setFont(QFont(theme['date']['font'], theme['date']['font.size'], theme['date']['font.weight']))
             tz_date.setAlignment(Qt.AlignmentFlag(align['date']['horizontal']) | Qt.AlignmentFlag(align['date']['vertical']))
@@ -139,13 +141,20 @@ class Window(QWidget):
             tz_grid.addWidget(tz_clock, 1, 1, 1, 2)
 
         self.tz_imgs[-1].setStyleSheet('margin-bottom: 12px')
-        
+
+        static = QLabel()
+        static.setMaximumHeight(15)
+        static.setText(f'MultiClock v{__version__}, Copyright © 2025, Ben Fisher')
+        static.setFont(QFont('Aptos Narrow', 9))
+        static.setStyleSheet(f'color: {theme['zone']['font.color']};')
+        static.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
+        vbox.addWidget(static)
         self.setLayout(vbox)
 
 
 
     def update_time(self):
-        
+
         _test_chime = False
 
         for zone, tz_name, tz_date, tz_img, tz_clock, current_time in \
@@ -165,7 +174,7 @@ class Window(QWidget):
                 if datetime.now().hour > 7 and datetime.now().hour < 22:
                 # The chime is overridden (silent mode) between 22:00 to 08:00 the next day
                     self.play_chime()
-    
+
     def play_chime(self):
         self.player = QMediaPlayer()
         self.audio_output = QAudioOutput()
