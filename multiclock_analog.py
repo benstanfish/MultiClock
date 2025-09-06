@@ -75,7 +75,7 @@ class Window(QWidget):
         top = 40
 
         self.setGeometry(left, top, window_width, window_height)
-        self.setWindowIcon(QIcon(settings['window.defaults']['icon']))
+        self.setWindowIcon(QIcon(settings['window.defaults']['icon_alt']))
         self.setStyleSheet(f'background: {settings['themes'][theme_name]['window.background']};')
         self.setWindowOpacity(settings['window.defaults']['opacity'])
 
@@ -168,7 +168,7 @@ class Window(QWidget):
 
         static = QLabel()
         static.setMaximumHeight(15)
-        static.setText(f'MultiClock, Copyright © 2025, Ben Fisher')
+        static.setText(f'MultiClock Analog, Copyright © 2025, Ben Fisher')
         static.setFont(QFont('Aptos Narrow', 9))
         static.setStyleSheet(f'color: {theme['zone']['font.color']};')
         static.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
@@ -176,8 +176,6 @@ class Window(QWidget):
 
 
         self.setLayout(global_vbox)
-
-
 
     def update_time(self):
 
@@ -208,17 +206,6 @@ class Window(QWidget):
         self.player.setSource(QUrl.fromLocalFile(full_path(settings['clock.defaults']['chime'])))
         self.audio_output.setVolume(settings['clock.defaults']['chime.volume'])
         self.player.play()
-
-    # def set_image(self, image_host: QLabel, current_time):
-    #     if current_time.hour >= 5 and current_time.hour < 8:
-    #         image_host.setPixmap(self.dawn)
-    #     elif current_time.hour >= 8 and current_time.hour < 17:
-    #         image_host.setPixmap(self.day)
-    #     elif current_time.hour >= 17 and current_time.hour < 19:
-    #         image_host.setPixmap(self.dusk)
-    #     else:
-    #         image_host.setPixmap(self.night)
-    #     image_host.setScaledContents(False)
 
     def align_time(self):
         """This function aligns the application timer and the now() time."""

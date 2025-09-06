@@ -20,6 +20,7 @@ fallback_settings = {
     'window.defaults': {
         'title': 'MultiClock',
         'icon': './assets/icon.ico',
+        'icon_alt': './assets/icon_alt.ico',
         'background': '#222',
         'opacity': 0.95,
         'timer': 1000
