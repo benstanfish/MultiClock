@@ -27,7 +27,7 @@ fallback_settings = {
     'clock.defaults': {
         'clocks': clocks,
         'date.format': '%a, %d %B %Y',
-        'time.format': '%H:%M:%S',
+        'time.format': '%H:%M',
         'chime': './assets/jihou-sine-3f.mp3',
         'chime.offset': -4,
         'chime.volume': 100

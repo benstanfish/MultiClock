@@ -4,21 +4,21 @@
         "title": "MultiClock",
         "icon": "./assets/icon.ico",
         "background": "#222",
-        "opacity": 0.7,
+        "opacity": 0.95,
         "timer": 1000
     },
     "clock.defaults": {
         "clocks": {
             "Tokyo": "Asia/Tokyo",
-			"UTC": "UTC",
-			"GTNP": "US/Mountain",
+            "UTC": "UTC",
+            "New York": "US/Eastern",
             "Seattle": "US/Pacific",
-			"Honolulu": "US/Hawaii"
+            "Hawaii": "US/Hawaii"
         },
         "date.format": "%a, %d %B %Y",
         "time.format": "%H:%M",
-        "chime": "./assets/14 西葛西(2番線).mp3",
-        "chime.offset": 0,
+        "chime": "./assets/nishikasai.mp3",
+        "chime.offset": 1,
         "chime.volume": 100
     },
     "clock.align": {

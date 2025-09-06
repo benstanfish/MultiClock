@@ -8,6 +8,7 @@ from PyQt6.QtGui import QIcon, QFont, QPixmap
 from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 import sys, os
 import pytz
+from tzlocal import get_localzone
 from datetime import datetime
 from time import perf_counter, sleep
 import config
@@ -18,6 +19,7 @@ settings = config.load_settings()
 
 clocks = settings['clock.defaults']['clocks']
 zones = [key for key in clocks.keys()]
+current_zone = str(get_localzone())
 
 theme_name = settings['selected_theme']
 
@@ -116,7 +118,6 @@ class Window(QWidget):
         for tz_name, tz_date, tz_img, tz_clock, tz_grid, zone in \
             zip(self.tz_names, self.tz_dates, self.tz_imgs, self.tz_clocks, self.tz_grids, zones):
             
-
             tz_name.setStyleSheet(f'background: {theme['zone']['background']}; color: {theme['zone']['font.color']};')
             tz_name.setFont(QFont(theme['zone']['font'], theme['zone']['font.size'], theme['zone']['font.weight']))
             tz_name.setAlignment(Qt.AlignmentFlag(align['zone']['horizontal']) | Qt.AlignmentFlag(align['zone']['vertical']))
@@ -128,7 +129,7 @@ class Window(QWidget):
 
             tz_img.setStyleSheet(f'background: {theme['date']['background']}; color: {theme['date']['font.color']}; height: 50; width: 50;')
 
-            tz_clock.setStyleSheet(f'background: {theme['clock']['background']}; color: {theme['clock']['font.color']}')
+            tz_clock.setStyleSheet(f'background: {theme['clock']['background']}; color: {theme['clock']['font.color']};')
             tz_clock.setFont(QFont(theme['clock']['font'], theme['clock']['font.size'], theme['clock']['font.weight']))
             tz_clock.setAlignment(Qt.AlignmentFlag(align['clock']['horizontal']) | Qt.AlignmentFlag(align['clock']['vertical']))
 
@@ -144,17 +145,26 @@ class Window(QWidget):
 
 
     def update_time(self):
+        
+        _test_chime = False
+
         for zone, tz_name, tz_date, tz_img, tz_clock, current_time in \
             zip(zones, self.tz_names, self.tz_dates, self.tz_imgs, self.tz_clocks, current_times(clocks)):
             tz_name.setText(zone + ' (UTC ' + utc_offsets[zone] + ')')
             tz_date.setText(current_time.strftime(settings['clock.defaults']['date.format']))
-            tz_clock.setText(current_time.strftime(settings['clock.defaults']['time.format']))
+            if clocks[zone] == current_zone:
+                tz_clock.setText(current_time.strftime('%H:%M') + f'<span style="font-size: 20px;">:{current_time.strftime('%S')}</span>')
+            else:
+                tz_clock.setText(current_time.strftime(settings['clock.defaults']['time.format']))
             self.set_image(tz_img, current_time)
-        if datetime.now().minute == 59 and \
-            datetime.now().second == 60 + settings['clock.defaults']['chime.offset']:
-            # The chime is overridden (silent mode) between 22:00 to 08:00 the next day
-            if datetime.now().hour > 6 and datetime.now().hour < 23:
+        if _test_chime:
+            if datetime.now().second == 59 + settings['clock.defaults']['chime.offset']:
                 self.play_chime()
+        if datetime.now().minute == 59 and \
+            datetime.now().second == 59 + settings['clock.defaults']['chime.offset']:
+                if datetime.now().hour > 7 and datetime.now().hour < 22:
+                # The chime is overridden (silent mode) between 22:00 to 08:00 the next day
+                    self.play_chime()
     
     def play_chime(self):
         self.player = QMediaPlayer()

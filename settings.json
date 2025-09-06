@@ -16,9 +16,9 @@
             "Hawaii": "US/Hawaii"
         },
         "date.format": "%a, %d %B %Y",
-        "time.format": "%H:%M:%S",
-        "chime": "./assets/bamboo-flute.mp3",
-        "chime.offset": -4,
+        "time.format": "%H:%M",
+        "chime": "./assets/14 西葛西(2番線).mp3",
+        "chime.offset": 0,
         "chime.volume": 100
     },
     "clock.align": {
