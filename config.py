@@ -29,8 +29,8 @@ fallback_settings = {
         'clocks': clocks,
         'date.format': '%a, %d %b %Y',
         'time.format': '%H:%M',
-        'chime': './assets/jihou-sine-3f.mp3',
-        'chime.offset': -4,
+        'chime': './assets/cuckoo.mp3',
+        'chime.offset': 0,
         'chime.volume': 100
     },
     'clock.defaults.horizontal': {
